@@ -34,11 +34,12 @@ WORKDIR /app
 # Copy built application
 COPY --from=builder --chown=tantraos:nodejs /app/dist ./dist
 COPY --from=builder --chown=tantraos:nodejs /app/server ./server
-COPY --from=builder --chown=tantraos:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=tantraos:nodejs /app/server/node_modules ./server/node_modules
 COPY --from=builder --chown=tantraos:nodejs /app/package*.json ./
 
-# Create logs directory
+# Create necessary directories
 RUN mkdir -p /app/logs && chown tantraos:nodejs /app/logs
+RUN mkdir -p /app/uploads && chown tantraos:nodejs /app/uploads
 
 # Switch to non-root user
 USER tantraos
